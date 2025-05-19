@@ -47,6 +47,22 @@ app.post("/postUser", (req, res) => {
 
 });
 
+// DELETE REQUEST ------------------------------------------------->
+app.delete("/deleteUser/:uid", (req, res) => {
+    const userId = parseInt(req.params.uid);
+    // console.log(id)
+    const found = members.some(member => member.id === userId);
+
+    if (found) {
+        const updatedMember = members.filter(member => member.id !== userId);
+        res.status(200).json(updatedMember);
+
+    } else {
+        res.status(400).json({ message: `User not found with id ${userId}` })
+    }
+})
+
+
 
 app.listen(port, () => {
     console.log(`server is running at port:${port}`);
